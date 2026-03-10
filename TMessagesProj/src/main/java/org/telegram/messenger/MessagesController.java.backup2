@@ -1,6 +1,4 @@
 /*
-import org.telegram.prysm.spy.MessageDeleteInterceptor;
-import org.telegram.prysm.spy.EditHistoryManager;
  * This is the source code of Telegram for Android v. 5.x.x.
  * It is licensed under GNU GPL v. 2 or later.
  * You should have received a copy of the license in this archive (see LICENSE).
@@ -9148,10 +9146,6 @@ public class MessagesController extends BaseController implements NotificationCe
     }
 
     public void deleteMessages(ArrayList<Integer> messages, ArrayList<Long> randoms, TLRPC.EncryptedChat encryptedChat, long dialogId, int topicId, boolean forAll, int mode, boolean cacheOnly) {
-        // PRYSM: Intercept deletion for spy feature
-        if (MessageDeleteInterceptor.getInstance().interceptDelete(dialogId, messages)) {
-            return;
-        }
         deleteMessages(messages, randoms, encryptedChat, dialogId, forAll, mode, cacheOnly, 0, null, topicId);
     }
 
@@ -9160,10 +9154,6 @@ public class MessagesController extends BaseController implements NotificationCe
     }
 
     public void deleteMessages(ArrayList<Integer> messages, ArrayList<Long> randoms, TLRPC.EncryptedChat encryptedChat, long dialogId, boolean forAll, int mode, boolean cacheOnly, long taskId, TLObject taskRequest, int topicId, boolean movedToScheduled, int movedToScheduledMessageId) {
-        // PRYSM: Intercept deletion for spy feature
-        if (MessageDeleteInterceptor.getInstance().interceptDelete(dialogId, messages)) {
-            return;
-        }
         final boolean scheduled = mode == ChatActivity.MODE_SCHEDULED;
         final boolean quickReplies = mode == ChatActivity.MODE_QUICK_REPLIES;
         if ((messages == null || messages.isEmpty()) && taskId == 0) {

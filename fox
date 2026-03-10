@@ -1,0 +1,34 @@
+#!/bin/bash
+echo "=== PRYSM PRE-BUILD CHECK ==="
+
+# Check logo
+if [ -f "TMessagesProj/src/main/res/drawable-xxhdpi/prysm_logo.png" ]; then
+    echo "✅ Logo found"
+else
+    echo "❌ Logo missing!"
+fi
+
+# Check Prysm files
+if [ -d "TMessagesProj/src/main/java/org/telegram/prysm" ]; then
+    echo "✅ Prysm package exists"
+    find TMessagesProj/src/main/java/org/telegram/prysm -name "*.java" | wc -l | xargs echo "   Java files:"
+else
+    echo "❌ Prysm package missing!"
+fi
+
+# Check strings
+if grep -q "PrysmHere" TMessagesProj/src/main/res/values/strings.xml; then
+    echo "✅ Strings added"
+else
+    echo "❌ Strings missing!"
+fi
+
+# Check workflow
+if [ -f ".github/workflows/build_prysm.yml" ]; then
+    echo "✅ GitHub Actions configured"
+else
+    echo "❌ Workflow missing!"
+fi
+
+echo ""
+echo "Ready to build!"

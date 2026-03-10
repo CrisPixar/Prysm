@@ -10527,4 +10527,19 @@
     <string name="RelativeDateMenuSetAReminder">Set a Reminder</string>
     <string name="RelativeDateCopied">Date copied to clipboard</string>
 
-</resources>
+</resources>    <string name="PrysmHere">Prysm тут!</string>
+    <string name="PrysmSpy">Шпион</string>
+    <string name="PrysmPersonalization">Персонализация</string>
+    <string name="PrysmDebug">Debug</string>
+    <string name="PrysmPrism">Prism</string>
+    <string name="PrysmSubtitle">Клиент, основанный только на чистой радуге!</string>
+    <string name="ShowDeletedMessages">Отображать удалённые сообщения</string>
+    <string name="DeletedMessageHint">Цитата</string>
+    <string name="DeletedPhoto">Фото</string>
+    <string name="EditHistory">История</string>
+    <string name="TransparentMode">Прозрачный режим</string>
+    <string name="PrysmTransparentMode">Прозрачный режим</string>
+    <string name="PrysmEditHistory">История изменений</string>
+    <string name="PrysmDeletedMessage">Сообщение удалено</string>
+    <string name="PrysmReplyTo">Ответ на</string>
+    <string name="PrysmPhoto">Фото</string>

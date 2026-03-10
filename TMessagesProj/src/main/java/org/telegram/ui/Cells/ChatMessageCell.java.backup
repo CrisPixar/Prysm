@@ -1,7 +1,4 @@
 /*
-import org.telegram.prysm.PrysmConfig;
-import org.telegram.prysm.spy.DeletedMessageManager;
-import org.telegram.prysm.spy.MessageDeleteInterceptor;
  * This is the source code of Telegram for Android v. 5.x.x.
  * It is licensed under GNU GPL v. 2 or later.
  * You should have received a copy of the license in this archive (see LICENSE).
@@ -27632,23 +27629,3 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
 
     private TL_stars.StarGift instantViewTypeIsGiftAuction;
 }
-
-    // PRYSM: Apply deleted message styling
-    private void applyDeletedStyling(MessageObject msg) {
-        DeletedMessageManager.DeletedMessageInfo info = 
-            DeletedMessageManager.getInstance().getDeletedInfo(msg.getId());
-        
-        if (info != null) {
-            // Set semi-transparent if enabled
-            if (PrysmConfig.getInstance().isDeletedTransparent()) {
-                setAlpha(0.5f);
-            }
-            
-            // Override text with deleted format
-            CharSequence deletedText = MessageDeleteInterceptor.formatDeletedText(info);
-            // Apply to message text view (implementation depends on Telegram version)
-        }
-        
-        // Set gray background
-        setBackgroundColor(0x40808080);
-    }

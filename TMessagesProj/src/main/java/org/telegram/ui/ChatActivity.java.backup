@@ -1,6 +1,4 @@
 /*
-import org.telegram.prysm.PrysmConfig;
-import org.telegram.prysm.ui.EditHistoryDialog;
  * This is the source code of Telegram for Android v. 5.x.x.
  * It is licensed under GNU GPL v. 2 or later.
  * You should have received a copy of the license in this archive (see LICENSE).
@@ -1618,12 +1616,6 @@ public class ChatActivity extends BaseFragment implements
                 result = createMenu(view, false, true, x, y, true);
             } else {
                 boolean outside = false;
-            // PRYSM: Add edit history option
-            if (PrysmConfig.getInstance().showEditHistory() && selectedObject.isEdited()) {
-                items.add(ITEM_EDIT_HISTORY);
-                options.add("История");
-                icons.add(R.drawable.msg_log);
-            }
                 if (view instanceof ChatMessageCell) {
                     outside = !((ChatMessageCell) view).isInsideBackground(x, y);
                 }
@@ -1802,12 +1794,6 @@ public class ChatActivity extends BaseFragment implements
             createMenu(view, true, false, x, y, false);
         }
 
-            // PRYSM: Add edit history option
-            if (PrysmConfig.getInstance().showEditHistory() && selectedObject.isEdited()) {
-                items.add(ITEM_EDIT_HISTORY);
-                options.add("История");
-                icons.add(R.drawable.msg_log);
-            }
         @Override
         public boolean hasDoubleTap(View view, int position) {
             if (chatMode == MODE_QUICK_REPLIES) return false;
@@ -2030,12 +2016,6 @@ public class ChatActivity extends BaseFragment implements
             ActionBarMenu menu = actionBar.createMenu();
             if (suggestEmojiPanel != null) {
                 suggestEmojiPanel.onTextSelectionChanged(start, end);
-            // PRYSM: Add edit history option
-            if (PrysmConfig.getInstance().showEditHistory() && selectedObject.isEdited()) {
-                items.add(ITEM_EDIT_HISTORY);
-                options.add("История");
-                icons.add(R.drawable.msg_log);
-            }
             }
             if (end - start > 0) {
                 if (editTextItem.getTag() == null) {
@@ -4214,12 +4194,6 @@ public class ChatActivity extends BaseFragment implements
         ActionBarMenu menu = actionBar.createMenu();
 
         if (chatMode == MODE_QUICK_REPLIES && !QuickRepliesController.isSpecial(quickReplyShortcut)) {
-            // PRYSM: Add edit history option
-            if (PrysmConfig.getInstance().showEditHistory() && selectedObject.isEdited()) {
-                items.add(ITEM_EDIT_HISTORY);
-                options.add("История");
-                icons.add(R.drawable.msg_log);
-            }
             menu.addItem(edit_quick_reply, R.drawable.group_edit).setContentDescription(LocaleController.getString(R.string.Edit));
         }
 
@@ -29612,12 +29586,6 @@ public class ChatActivity extends BaseFragment implements
     private boolean createMenu(View v, boolean single, boolean listView, float x, float y, boolean longpress) {
         return createMenu(v, single, listView, x, y, true, longpress);
     }
-            // PRYSM: Add edit history option
-            if (PrysmConfig.getInstance().showEditHistory() && selectedObject.isEdited()) {
-                items.add(ITEM_EDIT_HISTORY);
-                options.add("История");
-                icons.add(R.drawable.msg_log);
-            }
 
     private CharSequence getMessageCaption(MessageObject messageObject, MessageObject.GroupedMessages group) {
         return getMessageCaption(messageObject, group, null);
@@ -29660,23 +29628,11 @@ public class ChatActivity extends BaseFragment implements
     private boolean createMenu(View v, boolean single, boolean listView, float x, float y, boolean searchGroup, boolean longpress) {
         return createMenu(v, single, listView, x, y, searchGroup, longpress, false);
     }
-            // PRYSM: Add edit history option
-            if (PrysmConfig.getInstance().showEditHistory() && selectedObject.isEdited()) {
-                items.add(ITEM_EDIT_HISTORY);
-                options.add("История");
-                icons.add(R.drawable.msg_log);
-            }
 
     @SuppressLint("ClickableViewAccessibility")
     private boolean createMenu(View v, boolean single, boolean listView, float x, float y, boolean searchGroup, boolean longpress, boolean suggestEdit) {
         if (actionBar.isActionModeShowed() || isReport()) {
             return false;
-            // PRYSM: Add edit history option
-            if (PrysmConfig.getInstance().showEditHistory() && selectedObject.isEdited()) {
-                items.add(ITEM_EDIT_HISTORY);
-                options.add("История");
-                icons.add(R.drawable.msg_log);
-            }
         }
         if (chatActivityEnterView != null) {
             chatActivityEnterView.hideHints();
@@ -35767,12 +35723,6 @@ public class ChatActivity extends BaseFragment implements
                         return createMenu(cell, false, false, x, y, true);
                     }
 
-            // PRYSM: Add edit history option
-            if (PrysmConfig.getInstance().showEditHistory() && selectedObject.isEdited()) {
-                items.add(ITEM_EDIT_HISTORY);
-                options.add("История");
-                icons.add(R.drawable.msg_log);
-            }
                     @Override
                     public void onTopicClick(ChatActionCell cell) {
                         if (cell == null) return;
@@ -37810,12 +37760,6 @@ public class ChatActivity extends BaseFragment implements
                 createMenu(cell, true, false, otherX, otherY, messageObject.isMusic(), false);
             }
         }
-            // PRYSM: Add edit history option
-            if (PrysmConfig.getInstance().showEditHistory() && selectedObject.isEdited()) {
-                items.add(ITEM_EDIT_HISTORY);
-                options.add("История");
-                icons.add(R.drawable.msg_log);
-            }
 
         @Override
         public void didPressSponsoredClose(ChatMessageCell cell) {
@@ -37839,12 +37783,6 @@ public class ChatActivity extends BaseFragment implements
             createMenu(cell, true, false, x, y, false, false);
         }
 
-            // PRYSM: Add edit history option
-            if (PrysmConfig.getInstance().showEditHistory() && selectedObject.isEdited()) {
-                items.add(ITEM_EDIT_HISTORY);
-                options.add("История");
-                icons.add(R.drawable.msg_log);
-            }
         @Override
         public void didPressUserStatus(ChatMessageCell cell, TLRPC.User user, TLRPC.Document document, String giftSlug) {
             if (cell == null) {
@@ -38337,12 +38275,6 @@ public class ChatActivity extends BaseFragment implements
                 createMenu(cell, true, false, cell.getLastTouchX(), cell.getLastTouchY(), true, false, true);
             } else if (button.id == BotInlineKeyboard.ButtonCustom.OPEN_MESSAGE_THREAD) {
                 topicsTabs.selectTopic(messageObject.getTopicId(), true);
-            // PRYSM: Add edit history option
-            if (PrysmConfig.getInstance().showEditHistory() && selectedObject.isEdited()) {
-                items.add(ITEM_EDIT_HISTORY);
-                options.add("История");
-                icons.add(R.drawable.msg_log);
-            }
             }
         }
 
@@ -38814,12 +38746,6 @@ public class ChatActivity extends BaseFragment implements
             createMenu(cell, false, false, x, y, false);
             startMultiselect(chatListView.getChildAdapterPosition(cell));
         }
-            // PRYSM: Add edit history option
-            if (PrysmConfig.getInstance().showEditHistory() && selectedObject.isEdited()) {
-                items.add(ITEM_EDIT_HISTORY);
-                options.add("История");
-                icons.add(R.drawable.msg_log);
-            }
 
         @Override
         public boolean canPerformActions() {
@@ -39403,12 +39329,6 @@ public class ChatActivity extends BaseFragment implements
                 createMenu(cell, false, false, x, y, false);
                 return;
             } else if (message.isSending()) {
-            // PRYSM: Add edit history option
-            if (PrysmConfig.getInstance().showEditHistory() && selectedObject.isEdited()) {
-                items.add(ITEM_EDIT_HISTORY);
-                options.add("История");
-                icons.add(R.drawable.msg_log);
-            }
                 return;
             }
             if (fullPreview && message != null && message.messageOwner != null && message.messageOwner.media != null && message.messageOwner.media.webpage != null && !TextUtils.isEmpty(message.messageOwner.media.webpage.url)) {
@@ -40359,12 +40279,6 @@ public class ChatActivity extends BaseFragment implements
             actionBar.createMenu().setVisibility(inMenuMode ? View.GONE : View.VISIBLE);
         }
     }
-            // PRYSM: Add edit history option
-            if (PrysmConfig.getInstance().showEditHistory() && selectedObject.isEdited()) {
-                items.add(ITEM_EDIT_HISTORY);
-                options.add("История");
-                icons.add(R.drawable.msg_log);
-            }
 
     public void setPreloadedSticker(TLRPC.Document preloadedSticker, boolean historyEmpty) {
         preloadedGreetingsSticker = preloadedSticker;

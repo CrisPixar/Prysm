@@ -1,5 +1,4 @@
 package org.telegram.ui;
-import org.telegram.prysm.ui.PrysmSettingsActivity;
 
 import static org.telegram.messenger.AndroidUtilities.dp;
 import static org.telegram.messenger.AndroidUtilities.lerp;

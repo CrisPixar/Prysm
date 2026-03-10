@@ -1,0 +1,84 @@
+name: Build Prysm
+
+on:
+  push:
+    branches: [ master, prysm-dev ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Make scripts executable
+        run: chmod +x *.sh gradlew
+
+      - name: Run Prysm modifications
+        run: ./apply_prysm_mods.sh
+
+      - name: Inject API keys
+        run: |
+          sed -i "s/public static int APP_ID = .*/public static int APP_ID = ${{ secrets.APP_ID }};/" TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java
+          sed -i "s/public static String APP_HASH = .*/public static String APP_HASH = \"${{ secrets.APP_HASH }}\";/" TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java
+
+      - name: Build APK (Afat Release)
+        run: ./gradlew assembleAfatRelease --no-daemon --stacktrace
+
+      - name: Sign APK (optional)
+        uses: r0adkll/sign-android-release@v1
+        if: github.event_name == 'push'
+        with:
+          releaseDirectory: TMessagesProj_App/build/outputs/apk/afat/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Prysm-APK-${{ github.run_number }}
+          path: |
+            TMessagesProj_App/build/outputs/apk/**/*.apk
+            TMessagesProj_App/build/outputs/apk/**/mapping.txt
+          retention-days: 30
+
+      - name: Create Release
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: TMessagesProj_App/build/outputs/apk/**/*.apk
+          tag_name: prysm-v${{ github.run_number }}
+          name: Prysm Release ${{ github.run_number }}
+          body: |
+            🌈 Prysm Telegram Client
+            - Built from commit ${{ github.sha }}
+            - Includes all spy features
+            - Transparent mode support
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -403,6 +403,7 @@ public class NotificationCenter {
     public interface NotificationCenterDelegate {
         void didReceivedNotification(int id, int account, Object... args);
     }
+    public static final int messageDeletedByUser = totalEvents++;
 
     private static class DelayedPost {
 
@@ -671,6 +672,7 @@ public class NotificationCenter {
                 NotificationCenterDelegate obj = objects.get(a);
                 obj.didReceivedNotification(id, currentAccount, args);
             }
+    public static final int messageDeletedByUser = totalEvents++;
         }
         broadcasting--;
         if (broadcasting == 0) {
