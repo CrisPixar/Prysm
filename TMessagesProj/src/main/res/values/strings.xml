@@ -10527,7 +10527,7 @@
     <string name="RelativeDateMenuSetAReminder">Set a Reminder</string>
     <string name="RelativeDateCopied">Date copied to clipboard</string>
 
-</resources>    <string name="PrysmHere">Prysm тут!</string>
+    <string name="PrysmHere">Prysm тут!</string>
     <string name="PrysmSpy">Шпион</string>
     <string name="PrysmPersonalization">Персонализация</string>
     <string name="PrysmDebug">Debug</string>
@@ -10543,3 +10543,4 @@
     <string name="PrysmDeletedMessage">Сообщение удалено</string>
     <string name="PrysmReplyTo">Ответ на</string>
     <string name="PrysmPhoto">Фото</string>
+</resources>
